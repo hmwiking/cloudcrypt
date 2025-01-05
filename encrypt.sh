@@ -34,10 +34,10 @@ print_help() {
 until [ -z "${1}" ]; do
     if [ "${1}" = "--decrypted" ] || [ "${1}" = "-d" ]; then
         shift
-        filePath=$(basename ${1})
+        filePath="${1}"
     elif [ "${1}" = "--encrypted" ] || [ "${1}" = "-e" ]; then
         shift
-        encPath=$(basename ${1})
+        encPath="${1}"
     elif [ "${1}" = "--add-symmetric" ] || [ "${1}" = "-s" ]; then
         encryptSym=1
         shift
@@ -49,7 +49,7 @@ until [ -z "${1}" ]; do
 done
 
 # Catch errors
-if [ ! -f "./keyid" ]; then
+if [ ! -f "$(dirname $0)/keyid" ]; then
     printf "Key-ID file does not exist\n"
     exit 1
 fi
@@ -59,7 +59,7 @@ if [ ! -d "${filePath}" ]; then
 fi
 
 # Assign encryption key id
-keyID=$(cat ./keyid)
+keyID=$(cat $(dirname $0)/keyid)
 
 # Generate password
 printf "%s\n" "Generating password..."

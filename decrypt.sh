@@ -32,10 +32,10 @@ print_help() {
 until [ -z "${1}" ]; do
     if [ "${1}" = "--decrypted" ] || [ "${1}" = "-d" ]; then
         shift
-        filePath=$(basename ${1})
+        filePath="${1}"
     elif [ "${1}" = "--encrypted" ] || [ "${1}" = "-e" ]; then
         shift
-        encPath=$(basename ${1})
+        encPath="${1}"
     elif [ "${1}" = "--help" ] || [ "${1}" = "-h" ]; then
         print_help
         exit 0
