@@ -16,7 +16,7 @@ Encrypt files for cloud storage
 ./encrypt.sh -d ./source -e ./target -s
 
 ### Decrypt example
-./decrypt.sh -e ./source -d ./target -s
+./decrypt.sh -e ./source -d ./target
 
 
 
