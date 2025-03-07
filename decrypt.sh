@@ -1,9 +1,13 @@
 #!/bin/bash
 
-filePath="./files"
+tempDir="/tmp/cloudcrypt"
+filePath="${tempDir}/files"
 encPath="./enc"
-passFile="./pass"
-fileListName="files.txt"
+passFile="${tempDir}/pass"
+encFileName=
+fileListName="${tempDir}/files.txt"
+keyID=
+encryptSym=0
 encryptedPassFile=
 encryptedFileListName=
 
@@ -51,6 +55,12 @@ fi
 
 encryptedPassFile="${encPath}/pass.asc"
 encryptedFileListName="${encPath}/files.asc"
+
+# Create tempfile dir
+if [ ! -d "${tempDir}" ]; then
+    printf "%s\n" "Tempfile path does not exist, creating..."
+    mkdir -p ${tempDir}
+fi
 
 # Decrypt password
 gpg -d -o "${passFile}" "${encryptedPassFile}" || error

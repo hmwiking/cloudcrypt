@@ -1,10 +1,11 @@
 #!/bin/bash
 
-filePath="./files"
+tempDir="/tmp/cloudcrypt"
+filePath="${tempDir}/files"
 encPath="./enc"
-passFile="./pass"
+passFile="${tempDir}/pass"
 encFileName=
-fileListName="./files.txt"
+fileListName="${tempDir}/files.txt"
 keyID=
 encryptSym=0
 
@@ -56,6 +57,12 @@ fi
 if [ ! -d "${filePath}" ]; then
     printf "Decrypted folder %s does not exist\n" ${filePath}
     exit 1
+fi
+
+# Create tempfile dir
+if [ ! -d "${tempDir}" ]; then
+    printf "%s\n" "Tempfile path does not exist, creating..."
+    mkdir -p ${tempDir}
 fi
 
 # Assign encryption key id
