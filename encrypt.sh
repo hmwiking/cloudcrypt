@@ -59,6 +59,15 @@ if [ ! -d "${filePath}" ]; then
     exit 1
 fi
 
+# Check decrypted folder
+for file in ${filePath}/*; do
+    echo checking $file
+    if [ -d "${file}" ]; then
+        printf "%s\n" "Can not process recursively"
+        exit 1
+    fi
+done
+
 # Create tempfile dir
 if [ ! -d "${tempDir}" ]; then
     printf "%s\n" "Tempfile path does not exist, creating..."
