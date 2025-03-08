@@ -61,7 +61,6 @@ fi
 
 # Check decrypted folder
 for file in ${filePath}/*; do
-    echo checking $file
     if [ -d "${file}" ]; then
         printf "%s\n" "Can not process recursively"
         exit 1
