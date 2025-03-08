@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 tempDir="/tmp/cloudcrypt"
 filePath="${tempDir}/files"
@@ -53,7 +53,16 @@ if [ ! -d "${encPath}" ]; then
     exit 1
 fi
 
-encryptedPassFile="${encPath}/pass.asc"
+# Determine if symetric
+if [ -f "${encPath}/sympass.asc" ]; then
+    encryptSym=1
+fi
+
+if [ "${encryptSym}" = 1 ]; then
+    encryptedPassFile="${encPath}/sympass.asc"
+else
+    encryptedPassFile="${encPath}/pass.asc"
+fi
 encryptedFileListName="${encPath}/files.asc"
 
 # Create tempfile dir

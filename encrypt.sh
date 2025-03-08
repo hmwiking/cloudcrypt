@@ -24,7 +24,7 @@ print_help() {
   echo "  -h, --help        Show this help message and exit."
   echo "  -d, --decrypted   Decrypted files path."
   echo "  -e, --encrypted   Encrypted files path."
-  echo "  -s, --add-symmetric   Add symmetrically encrypte pass file."
+  echo "  -s, --use-symmetric   Use symmetrically encrypted pass file."
   echo
   echo "Description:"
   echo "This script encrypts files in a folder"
@@ -79,13 +79,14 @@ if [ ! -d "${encPath}" ]; then
 fi
 
 # Encrypt password
-printf "%s\n" "Encrypting password..."
-gpg -ea -r ${keyID} -o ${encPath}/pass.asc --throw-keyids ${passFile} || error
-
-if [ "${encryptSym}" = "1" ]; then
+if [ "${encryptSym}" = "0" ]; then
+    printf "%s\n" "Encrypting password..."
+    gpg -ea -r ${keyID} -o ${encPath}/pass.asc --throw-keyids ${passFile} || error
+elif [ "${encryptSym}" = "1" ]; then
     printf "%s\n" "Encrypting password symmetrically..."
     gpg -ca -o ${encPath}/sympass.asc ${passFile} || error
 fi
+
 # Encrypt files
 if [ ! -d "${encPath}" ]; then
     printf "%s\n" "Encrypted path does not exist, creating..."
